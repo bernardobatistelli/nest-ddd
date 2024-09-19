@@ -11,15 +11,13 @@ import { randomUUID } from 'node:crypto'
 export class S3Storage implements Uploader {
   private client: S3Client
   constructor(private envService: EnvService) {
-    // const accountId = envService.get('AWS_ACCOUNT_ID')
-    const bucketName = envService.get('AWS_BUCKET_NAME')
-    const awsRegion = envService.get('AWS_REGION')
     this.client = new S3Client({
-      endpoint: `https://${bucketName}.s3.${awsRegion}.amazonaws.com/`,
-      region: awsRegion,
+      endpoint: `https://s3.us-east-1.amazonaws.com/`,
+      // region: awsRegion,
       credentials: {
         accessKeyId: envService.get('AWS_ACCESS_KEY_ID'),
         secretAccessKey: envService.get('AWS_SECRET_ACCESS_KEY'),
+        accountId: envService.get('AWS_ACCOUNT_ID'),
       },
     })
   }
